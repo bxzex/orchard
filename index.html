@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hollowmere Cider</title>
+<meta name="description" content="A brand site for Hollowmere, a fictional cider house. The orchard in the hero is drawn in code and changes with the seasons. No images, no libraries." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --cream:#f4ede0; --paper:#fbf7ef; --ink:#1d2a22; --green:#22392c; --moss:#4c6b4a; --red:#b3321f; --gold:#d8a23f; --sub:#5f6a61; --line:#ded4c2;
+  --s:"Young Serif",Georgia,serif; --d:"Figtree",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,body{margin:0}
+body{background:var(--cream);color:var(--ink);font-family:var(--d);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+/* nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:20;background:linear-gradient(180deg,rgba(14,22,16,.35),transparent);transition:background .3s,box-shadow .3s}
+nav.solid{background:rgba(244,237,224,.96);box-shadow:0 1px 0 var(--line)}
+nav .wrap{display:flex;align-items:center;gap:28px;height:70px}
+.mark{display:flex;align-items:center;gap:10px;font-family:var(--s);font-size:22px;text-decoration:none;color:#fff;transition:color .3s}
+nav.solid .mark{color:var(--ink)}
+.mark svg{flex:none}
+nav ul{display:flex;gap:26px;list-style:none;margin:0 0 0 auto;padding:0}
+nav ul a{text-decoration:none;font-weight:500;font-size:15px;color:rgba(255,255,255,.92);transition:color .3s}
+nav.solid ul a{color:var(--ink)}
+nav .book{background:var(--red);color:#fff;text-decoration:none;font-weight:600;font-size:14px;padding:10px 16px;border-radius:99px;box-shadow:0 3px 0 #7c2012;transition:transform .1s,box-shadow .1s}
+nav .book:active{transform:translateY(2px);box-shadow:0 1px 0 #7c2012}
+.burger{display:none;background:none;border:0;color:#fff;margin-left:auto;padding:6px;cursor:pointer}
+nav.solid .burger{color:var(--ink)}
+/* hero */
+.hero{position:relative;height:100vh;min-height:620px;overflow:hidden;background:#26352c}
+#scene{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(14,22,16,.62) 0,rgba(14,22,16,.28) 45%,transparent 70%),linear-gradient(0deg,rgba(14,22,16,.45),transparent 45%)}
+.hero .copy{position:absolute;left:0;right:0;bottom:12vh;color:#fff;z-index:2}
+.hero h1{font-family:var(--s);font-weight:400;font-size:clamp(46px,7.6vw,108px);line-height:.98;margin:0 0 18px;letter-spacing:-.015em;text-shadow:0 2px 30px rgba(0,0,0,.25)}
+.hero p{font-size:clamp(17px,1.6vw,20px);max-width:520px;margin:0 0 26px;color:rgba(255,255,255,.92);text-shadow:0 1px 14px rgba(0,0,0,.35)}
+.seasons{display:flex;gap:6px;flex-wrap:wrap}
+.seasons button{font:600 14px var(--d);color:#fff;background:rgba(20,28,22,.35);border:1px solid rgba(255,255,255,.35);border-radius:99px;padding:8px 15px;cursor:pointer;transition:background .2s}
+.seasons button.on{background:#fff;color:var(--ink);border-color:#fff}
+.hero .scroll{position:absolute;right:28px;bottom:26px;color:rgba(255,255,255,.8);font-size:13px;z-index:2;letter-spacing:.08em;text-transform:uppercase}
+/* sections */
+section{padding:110px 0}
+.kicker{font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin:0 0 14px}
+h2{font-family:var(--s);font-weight:400;font-size:clamp(34px,4.4vw,58px);line-height:1.05;margin:0 0 20px;letter-spacing:-.01em}
+.lede{font-size:19px;color:var(--sub);max-width:620px;margin:0}
+.intro{display:grid;grid-template-columns:1.1fr 1fr;gap:70px;align-items:end}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:60px;border-top:1px solid var(--line)}
+.facts div{padding:26px 0 0}
+.facts b{display:block;font-family:var(--s);font-weight:400;font-size:46px;line-height:1;color:var(--green)}
+.facts span{color:var(--sub);font-size:15px}
+/* ciders */
+.range{background:var(--paper)}
+.ciders{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:54px}
+.cider{background:var(--cream);border-radius:18px;padding:22px 22px 24px;position:relative;box-shadow:0 1px 0 rgba(255,255,255,.8) inset,0 10px 30px -18px rgba(40,30,10,.35);display:flex;flex-direction:column}
+.cider .bot{height:250px;display:flex;align-items:flex-end;justify-content:center;margin:0 0 18px;border-radius:12px;position:relative;overflow:hidden}
+.cider .bot svg{height:236px;filter:drop-shadow(0 14px 12px rgba(0,0,0,.18));transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.cider:hover .bot svg{transform:translateY(-6px) rotate(-2deg)}
+.cider h3{font-family:var(--s);font-weight:400;font-size:25px;line-height:1.1;margin:0 0 4px}
+.cider .st{font-size:13.5px;color:var(--sub);margin-bottom:12px}
+.cider p{font-size:15px;margin:0 0 16px;color:#38463d}
+.dry{margin-top:auto}
+.dry .lbl{display:flex;justify-content:space-between;font-size:12px;color:var(--sub);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.dry .bar{height:8px;border-radius:99px;background:linear-gradient(90deg,#e6d9bd,#d8a23f 55%,#8a4b1a);position:relative}
+.dry .bar i{position:absolute;top:50%;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px var(--ink)}
+.cider .buy{display:flex;justify-content:space-between;align-items:center;margin-top:18px}
+.cider .buy b{font-family:var(--s);font-weight:400;font-size:22px}
+.cider .buy button{font:600 14px var(--d);background:var(--green);color:#fff;border:0;border-radius:99px;padding:9px 15px;cursor:pointer;box-shadow:0 3px 0 #0f1d15}
+.cider .buy button:active{transform:translateY(2px);box-shadow:0 1px 0 #0f1d15}
+.cider .buy button.added{background:var(--moss)}
+/* year */
+.year .track{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:56px;border-radius:20px;overflow:hidden;box-shadow:0 20px 50px -30px rgba(20,30,20,.5)}
+.month{position:relative;min-height:440px;padding:26px;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;cursor:pointer;overflow:hidden}
+.month canvas{position:absolute;inset:0;width:100%;height:100%}
+.month .t{position:relative;z-index:1}
+.month small{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.85}
+.month h3{font-family:var(--s);font-weight:400;font-size:30px;margin:4px 0 8px;line-height:1.05}
+.month p{margin:0;font-size:15px;opacity:.94;max-width:260px}
+.month::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,rgba(10,16,12,.72));pointer-events:none}
+/* visit */
+.visit{background:var(--green);color:#f1ead9}
+.visit .kicker{color:var(--gold)}
+.visit .lede{color:rgba(241,234,217,.78)}
+.vgrid{display:grid;grid-template-columns:1fr 1.05fr;gap:60px;align-items:start}
+.hours{margin-top:34px;display:grid;grid-template-columns:auto 1fr;gap:10px 30px;font-size:16px}
+.hours span{color:rgba(241,234,217,.65)}
+.addr{margin-top:30px;padding-top:24px;border-top:1px solid rgba(241,234,217,.18);font-size:15.5px;color:rgba(241,234,217,.85)}
+form{background:var(--cream);color:var(--ink);border-radius:20px;padding:28px;box-shadow:0 30px 60px -30px rgba(0,0,0,.5)}
+form h3{font-family:var(--s);font-weight:400;font-size:28px;margin:0 0 4px}
+form .sub{color:var(--sub);font-size:14.5px;margin:0 0 20px}
+.fld{margin-bottom:16px}
+.fld label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+.fld input,.fld select{width:100%;font:500 15px var(--d);color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:11px 12px;outline:none}
+.fld input:focus,.fld select:focus{border-color:var(--green)}
+.fld.bad input,.fld.bad select{border-color:var(--red)}
+.fld .err{color:var(--red);font-size:12.5px;margin-top:4px;display:none}
+.fld.bad .err{display:block}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.days button{font:600 13px var(--d);background:#fff;border:1.5px solid var(--line);border-radius:9px;padding:7px 0;cursor:pointer;color:var(--ink);line-height:1.2}
+.days button small{display:block;font-weight:500;font-size:10.5px;color:var(--sub)}
+.days button:disabled{opacity:.35;cursor:not-allowed;text-decoration:line-through}
+.days button.on{background:var(--green);border-color:var(--green);color:#fff}
+.days button.on small{color:rgba(255,255,255,.8)}
+.slots{display:flex;gap:6px;flex-wrap:wrap}
+.slots button{font:600 13.5px var(--d);background:#fff;border:1.5px solid var(--line);border-radius:99px;padding:7px 13px;cursor:pointer;color:var(--ink)}
+.slots button.on{background:var(--green);border-color:var(--green);color:#fff}
+.slots button:disabled{opacity:.35;cursor:not-allowed}
+.stepper{display:flex;align-items:center;gap:0;border:1.5px solid var(--line);border-radius:10px;background:#fff;width:max-content}
+.stepper button{width:42px;height:42px;border:0;background:none;font-size:20px;cursor:pointer;color:var(--ink)}
+.stepper b{min-width:40px;text-align:center;font-size:16px}
+.submit{width:100%;font:700 16px var(--d);color:#fff;background:var(--red);border:0;border-radius:12px;padding:14px;cursor:pointer;box-shadow:0 4px 0 #7c2012;margin-top:6px}
+.submit:active{transform:translateY(2px);box-shadow:0 2px 0 #7c2012}
+.fine{font-size:12.5px;color:var(--sub);margin:12px 0 0;text-align:center}
+.done{text-align:center;padding:30px 10px}
+.done h3{font-size:32px}
+.done .ref{font-family:var(--s);font-size:26px;letter-spacing:.08em;background:#fff;border:1.5px dashed var(--line);display:inline-block;padding:8px 18px;border-radius:10px;margin:14px 0}
+footer{padding:50px 0 60px;font-size:14px;color:var(--sub)}
+footer .wrap{display:flex;gap:30px;flex-wrap:wrap;justify-content:space-between;align-items:center}
+.cart{position:fixed;right:22px;bottom:22px;z-index:30;background:var(--ink);color:#fff;border-radius:99px;padding:11px 18px;font-weight:600;font-size:14px;box-shadow:0 10px 30px rgba(0,0,0,.3);transform:translateY(120px);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.cart.show{transform:none}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+@media (max-width:1000px){.ciders{grid-template-columns:1fr 1fr}.year .track{grid-template-columns:1fr 1fr}.intro,.vgrid{grid-template-columns:1fr;gap:34px}}
+@media (max-width:720px){
+  .wrap{padding:0 16px} section{padding:80px 0}
+  nav ul{display:none;position:absolute;top:70px;left:0;right:0;flex-direction:column;gap:0;background:var(--cream);padding:8px 16px 16px;box-shadow:0 10px 20px rgba(0,0,0,.12)}
+  nav ul.open{display:flex} nav ul a{color:var(--ink)!important;display:block;padding:12px 0;border-bottom:1px solid var(--line)}
+  .burger{display:block} nav .book{display:none}
+  .ciders,.year .track{grid-template-columns:1fr} .month{min-height:320px}
+  .facts{grid-template-columns:1fr}.facts div{padding:18px 0;border-bottom:1px solid var(--line)}
+  .two{grid-template-columns:1fr} form{padding:20px} .hero .scroll{display:none}
+  .days button{font-size:12px}
+}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<nav id="nav"><div class="wrap">
+  <a class="mark" href="#top"><svg width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="17" r="11" fill="#b3321f"/><path d="M15 6c0-3 2-5 5-5-1 3-2 4-5 5z" fill="#4c6b4a"/><path d="M15 7v5" stroke="#22392c" stroke-width="2" stroke-linecap="round"/><path d="M9 16c1-3 3-4 5-4" stroke="rgba(255,255,255,.55)" stroke-width="2" fill="none" stroke-linecap="round"/></svg>Hollowmere</a>
+  <ul id="menu"><li><a href="#range">The ciders</a></li><li><a href="#year">The year</a></li><li><a href="#visit">Visit</a></li></ul>
+  <a class="book" href="#visit">Book a tasting</a>
+  <button class="burger" id="burger" aria-label="Menu"><svg width="26" height="26" viewBox="0 0 26 26"><path d="M3 7h20M3 13h20M3 19h20" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>
+</div></nav>
+
+<header class="hero" id="top">
+  <canvas id="scene" aria-hidden="true"></canvas>
+  <div class="copy"><div class="wrap">
+    <h1>Cider from<br>eleven old rows.</h1>
+    <p>Hollowmere presses apples from one orchard in a valley that has grown them since 1897. Nothing is brought in and nothing is rushed.</p>
+    <div class="seasons" id="seasons"><button data-s="0">Spring</button><button data-s="1">Summer</button><button data-s="2" class="on">Autumn</button><button data-s="3">Winter</button></div>
+  </div></div>
+  <div class="scroll">Scroll</div>
+</header>
+
+<section id="about"><div class="wrap">
+  <div class="intro reveal">
+    <div><p class="kicker">The orchard</p><h2>We let the fruit decide how the cider tastes.</h2></div>
+    <p class="lede">Forty acres, eleven varieties, and trees older than anyone who works here. We pick by hand, press in the barn, and ferment on wild yeast in old oak. Some years that makes a sharper cider, some years a softer one. We bottle whatever the orchard gives us.</p>
+  </div>
+  <div class="facts reveal"><div><b data-n="1897">0</b><span>the year the first rows went in</span></div><div><b data-n="11">0</b><span>apple and pear varieties</span></div><div><b data-n="14">0</b><span>months in oak for the No. 9</span></div></div>
+</div></section>
+
+<section class="range" id="range"><div class="wrap">
+  <div class="reveal"><p class="kicker">The ciders</p><h2>Four bottles, one valley.</h2><p class="lede">Each comes from a different corner of the orchard. The dial shows where each one sits between bone dry and properly sweet.</p></div>
+  <div class="ciders" id="ciders"></div>
+</div></section>
+
+<section class="year" id="year"><div class="wrap">
+  <div class="reveal"><p class="kicker">The year at Hollowmere</p><h2>Twelve months, four jobs.</h2><p class="lede">Tap a season to see the orchard in it. The same trees are drawn each time, grown from the same seed.</p></div>
+  <div class="track reveal" id="track"></div>
+</div></section>
+
+<section class="visit" id="visit"><div class="wrap vgrid">
+  <div class="reveal">
+    <p class="kicker">Visit</p><h2>Come and taste it where it grows.</h2>
+    <p class="lede">Tastings run in the old press barn. You try all four ciders, walk the first three rows, and meet whoever is pressing that day.</p>
+    <div class="hours"><span>Wednesday to Friday</span><b>12:00 to 18:00</b><span>Saturday and Sunday</span><b>10:00 to 19:00</b><span>Monday and Tuesday</span><b>closed for pressing</b></div>
+    <div class="addr">Hollowmere Barn, Lower Hollow Lane<br>Tastings are £18 a person and take about an hour.</div>
+  </div>
+  <form id="form" class="reveal" novalidate>
+    <div id="fbody">
+      <h3>Book a tasting</h3><p class="sub">Choose a day in the next two weeks.</p>
+      <div class="fld" id="f-day"><label>Day</label><div class="days" id="days"></div><div class="err">Pick a day.</div></div>
+      <div class="fld" id="f-slot"><label>Time</label><div class="slots" id="slots"></div><div class="err">Pick a time.</div></div>
+      <div class="fld"><label>Guests</label><div class="stepper"><button type="button" id="minus" aria-label="Fewer">−</button><b id="guests">2</b><button type="button" id="plus" aria-label="More">+</button></div></div>
+      <div class="two">
+        <div class="fld" id="f-name"><label for="name">Name</label><input id="name" autocomplete="name" /><div class="err">Tell us who to expect.</div></div>
+        <div class="fld" id="f-mail"><label for="mail">Email</label><input id="mail" type="email" autocomplete="email" /><div class="err">That email does not look right.</div></div>
+      </div>
+      <button class="submit" id="submitBtn">Reserve for <span id="total">£36</span></button>
+      <p class="fine">Hollowmere is a fictional cider house. Nothing is sent and nobody is charged.</p>
+    </div>
+  </form>
+</div></section>
+
+<footer><div class="wrap"><span>Hollowmere Cider · a fictional brand</span><span>The orchard, bottles and seasons are drawn in code. No images.</span><span>Built by <a href="https://bxzex.com">bxzex</a></span></div></footer>
+<div class="cart" id="cart"></div>
+
+<script>
+"use strict";
+const $=s=>document.querySelector(s);
+/* ================= seeded randomness ================= */
+function rng(seed){ let s=seed>>>0||1; return ()=>{ s^=s<<13; s^=s>>>17; s^=s<<5; return (s>>>0)/4294967296; }; }
+
+/* ================= seasons ================= */
+const SEASONS=[
+  {name:"Spring",sky:["#9fc7d9","#f2d9c8"],sun:"#fff4e0",sunY:.30,hill:["#8fae7e","#6f9464","#557a4f"],ground:"#6d9459",row:"#7ea466",leaf:["#9cc27a","#b5d38a","#86b16a"],dots:["#f7d9e3","#fbeef2","#f2b9cc"],dotN:14,leafN:1,bark:"#4a3a2d",snow:false},
+  {name:"Summer",sky:["#6fb0d6","#e6edcf"],sun:"#fffbe8",sunY:.18,hill:["#6c9a55","#4f8043","#3c6a36"],ground:"#4e7c3c",row:"#5c8c45",leaf:["#3f7a35","#4f8d3e","#5f9c46"],dots:["#c9412a","#a8331f"],dotN:4,leafN:1.15,bark:"#3f3226",snow:false},
+  {name:"Autumn",sky:["#f0a869","#f7dcae"],sun:"#ffe7b8",sunY:.46,hill:["#b98b4d","#9a7040","#7a5a36"],ground:"#8a7a3e",row:"#9c8a48",leaf:["#c9862f","#d9a441","#b5652a","#8f9a3c"],dots:["#b3321f","#c9412a","#8e2415"],dotN:9,leafN:.95,bark:"#3a2c22",snow:false},
+  {name:"Winter",sky:["#b9c4cc","#e9e4dc"],sun:"#f7f4ee",sunY:.40,hill:["#d6dadb","#c3c9cb","#aeb6b9"],ground:"#e8e9e6",row:"#d8dcda",leaf:[],dots:[],dotN:0,leafN:0,bark:"#3b3430",snow:true},
+];
+let season=2;
+
+/* ================= the orchard renderer =================
+   Rows of trees recede to a vanishing point. Each tree is a recursive
+   branch structure grown from its own seed, so every season redraws the
+   same trees. Wind sways branches by depth. */
+function makeTree(seed){
+  const r=rng(seed), br=[];
+  (function grow(x,y,ang,len,w,d,parent){
+    const x2=x+Math.cos(ang)*len, y2=y+Math.sin(ang)*len, me=br.length;
+    br.push({x,y,x2,y2,w,d,parent,ph:r()*6.28});
+    if(d>=5||len<5) return;
+    const n=d<1?3:2;
+    for(let i=0;i<n;i++){ const spread=(i/(n-1)-.5)*(1.25+r()*.4); grow(x2,y2,ang+spread+(r()-.5)*.3,len*(.7+r()*.1),w*.64,d+1,me); }
+  })(0,0,-Math.PI/2+(r()-.5)*.1,30+r()*6,7,0,-1);
+  // canopy: a handful of big overlapping lobes around the upper branch ends, not a confetti of leaves
+  const tips=br.map((b,i)=>i).filter(i=>br[i].d>=3);
+  const lobes=[]; for(let k=0;k<11;k++){ const i=tips[(r()*tips.length)|0]; lobes.push({b:i,ox:(r()-.5)*10,oy:(r()-.5)*8,r:17+r()*9}); }
+  lobes.sort((p,q)=>br[q.b].y2-br[p.b].y2);
+  const fruit=[]; for(let k=0;k<26;k++){ const L=lobes[(r()*lobes.length)|0], a=r()*6.28, d=Math.sqrt(r())*.8; fruit.push({l:L,dx:Math.cos(a)*d,dy:Math.sin(a)*d,c:r(),show:r()}); }
+  return {br,lobes,fruit,tone:r()};
+}
+const TREES=[]; { const r=rng(1897); for(let i=0;i<48;i++) TREES.push(makeTree(1+(r()*1e9|0))); }
+
+function paintScene(ctx,W,H,s,t,opt={}){
+  const S=SEASONS[s], par=opt.parallax||0, dense=opt.dense??1;
+  // sky
+  const g=ctx.createLinearGradient(0,0,0,H*.7); g.addColorStop(0,S.sky[0]); g.addColorStop(1,S.sky[1]);
+  ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+  // sun
+  const sx=W*.72, sy=H*S.sunY+par*.15, sr=Math.min(W,H)*.075;
+  const sg=ctx.createRadialGradient(sx,sy,0,sx,sy,sr*4); sg.addColorStop(0,S.sun); sg.addColorStop(.25,S.sun+"cc"); sg.addColorStop(1,S.sun+"00");
+  ctx.fillStyle=sg; ctx.beginPath(); ctx.arc(sx,sy,sr*4,0,7); ctx.fill();
+  ctx.fillStyle=S.sun; ctx.beginPath(); ctx.arc(sx,sy,sr,0,7); ctx.fill();
+  // hills, three layers of summed sines
+  const hz=H*.56;
+  S.hill.forEach((c,k)=>{ ctx.fillStyle=c; ctx.beginPath(); ctx.moveTo(0,H);
+    const amp=H*(.05+k*.018), base=hz-H*(.10-k*.045)+par*(.1+k*.08);
+    for(let x=0;x<=W;x+=8){ const y=base-amp*(Math.sin(x/W*3.1+k*1.7)*.6+Math.sin(x/W*7.3+k)*.25+Math.sin(x/W*13+k*3)*.1); ctx.lineTo(x,y); }
+    ctx.lineTo(W,H); ctx.fill(); });
+  // ground
+  { const gy=hz+par*.35, gg=ctx.createLinearGradient(0,gy,0,gy+H*.12); gg.addColorStop(0,S.hill[2]); gg.addColorStop(1,S.ground); ctx.fillStyle=gg; ctx.fillRect(0,gy,W,H); }
+  // rows receding to a vanishing point
+  const vx=W*.46, vy=hz+par*.35, rows=7;
+  ctx.fillStyle=S.row;
+  for(let i=-rows;i<=rows;i++){ ctx.beginPath(); const a=(i-.18)*W*.24, b=(i+.18)*W*.24; ctx.moveTo(vx,vy); ctx.lineTo(vx+a,H); ctx.lineTo(vx+b,H); ctx.fill(); }
+  // trees, far to near
+  const items=[];
+  for(let row=-3;row<=3;row++){ if(row===0) continue;
+    for(let dep=0;dep<7;dep++){ const z=1-dep/7, p=.06+Math.pow(z,1.8)*.72; // p: projection scale
+      const x=vx+row*W*.24*p*1.02, y=vy+(H-vy)*p; items.push({x,y,p,idx:((row+3)*7+dep)%TREES.length}); } }
+  items.sort((a,b)=>a.p-b.p);
+  const wind=opt.still?0:Math.sin(t*.0009)*.5+Math.sin(t*.0023)*.25;
+  for(const it of items){ if(dense<1&&it.p<.12) continue; drawTree(ctx,TREES[it.idx],it.x,it.y,it.p*(Math.min(H,W*.75)/900)*2.6,S,wind,t); }
+  // haze towards the horizon
+  const hg=ctx.createLinearGradient(0,vy-H*.06,0,vy+H*.12); hg.addColorStop(0,S.sky[1]+"00"); hg.addColorStop(.5,S.sky[1]+"55"); hg.addColorStop(1,S.sky[1]+"00");
+  ctx.fillStyle=hg; ctx.fillRect(0,vy-H*.06,W,H*.18);
+  if(S.snow){ const r=rng(7); ctx.fillStyle="rgba(255,255,255,.85)"; for(let i=0;i<260;i++){ const x=(r()*W+t*.02*(1+r()))%W, y=(r()*H+t*.04*(.5+r()))%H; ctx.beginPath(); ctx.arc(x,y,.8+r()*1.8,0,7); ctx.fill(); } }
+  // film grain for warmth
+  if(opt.grain!==false){ GRAIN=GRAIN||ctx.createPattern(grainTile(),"repeat"); ctx.fillStyle=GRAIN; ctx.fillRect(0,0,W,H); }
+}
+function shade(hex,k){ const n=parseInt(hex.slice(1),16); let r=n>>16,g=n>>8&255,b=n&255; const f=k<0?0:255, t=Math.abs(k); r=Math.round(r+(f-r)*t); g=Math.round(g+(f-g)*t); b=Math.round(b+(f-b)*t); return `rgb(${r},${g},${b})`; }
+function drawTree(ctx,tree,x,y,sc,S,wind,t){
+  const pos=new Array(tree.br.length);
+  ctx.save(); ctx.translate(x,y); ctx.lineCap="round";
+  ctx.fillStyle="rgba(20,20,10,.16)"; ctx.beginPath(); ctx.ellipse(0,0,40*sc,7*sc,0,0,7); ctx.fill();
+  if(S.snow){ ctx.fillStyle="rgba(255,255,255,.9)"; ctx.beginPath(); ctx.ellipse(0,1*sc,26*sc,4.5*sc,0,0,7); ctx.fill(); }
+  ctx.strokeStyle=S.bark;
+  tree.br.forEach((b,i)=>{
+    const sway=wind*.025*b.d*b.d+Math.sin(t*.002+b.ph)*.004*b.d;
+    const [ox,oy]=b.parent<0?[0,0]:pos[b.parent];
+    const dx=(b.x2-b.x)*sc, dy=(b.y2-b.y)*sc, c=Math.cos(sway), s=Math.sin(sway);
+    const ex=ox+dx*c-dy*s, ey=oy+dx*s+dy*c; pos[i]=[ex,ey];
+    ctx.lineWidth=Math.max(.6,b.w*sc); ctx.beginPath(); ctx.moveTo(ox,oy); ctx.lineTo(ex,ey); ctx.stroke();
+    if(S.snow&&b.d<4&&b.d>0){ ctx.strokeStyle="rgba(255,255,255,.85)"; ctx.lineWidth=Math.max(.4,b.w*sc*.45); ctx.beginPath(); ctx.moveTo(ox,oy-b.w*sc*.3); ctx.lineTo(ex,ey-b.w*sc*.3); ctx.stroke(); ctx.strokeStyle=S.bark; }
+  });
+  if(S.leaf.length){
+    const base=S.leaf[(tree.tone*S.leaf.length)|0], k=S.leafN;
+    const at=l=>{ const [bx,by]=pos[l.b]; return [bx+l.ox*sc,by+l.oy*sc,l.r*sc*k]; };
+    // three passes give each canopy a shadowed underside, a body and a lit crown
+    ctx.fillStyle=shade(base,-.28); for(const l of tree.lobes){ const [cx,cy,r]=at(l); ctx.beginPath(); ctx.arc(cx+r*.08,cy+r*.22,r,0,7); ctx.fill(); }
+    ctx.fillStyle=base; for(const l of tree.lobes){ const [cx,cy,r]=at(l); ctx.beginPath(); ctx.arc(cx,cy,r*.94,0,7); ctx.fill(); }
+    ctx.fillStyle=shade(base,.22); for(const l of tree.lobes){ const [cx,cy,r]=at(l); ctx.beginPath(); ctx.arc(cx-r*.22,cy-r*.28,r*.5,0,7); ctx.fill(); }
+    if(S.dots.length) for(const f of tree.fruit){ if(f.show>S.dotN/14) continue; const [cx,cy,r]=at(f.l);
+      ctx.fillStyle=S.dots[(f.c*S.dots.length)|0]; ctx.beginPath(); ctx.arc(cx+f.dx*r,cy+f.dy*r,(S.name==="Spring"?1.9:2.6)*sc,0,7); ctx.fill(); }
+  }
+  if(S.name==="Autumn"){ ctx.fillStyle="#9e2b1a"; for(let i=0;i<4;i++){ const f=tree.fruit[i]; ctx.beginPath(); ctx.arc(f.dx*34*sc,2*sc+f.dy*3*sc,2.4*sc,0,7); ctx.fill(); } }
+  ctx.restore();
+}
+function grainTile(){ const c=document.createElement("canvas"); c.width=c.height=160; const x=c.getContext("2d"), r=rng(3); x.fillStyle="rgba(40,20,0,.05)"; for(let i=0;i<700;i++) x.fillRect(r()*160,r()*160,1.2,1.2); return c; }
+let GRAIN=null;
+
+/* hero loop */
+const cv=$("#scene"), ctx=cv.getContext("2d");
+let W=0,H=0,dpr=1, fade=1, fadeT0=0, prevSeason=season, snap=null;
+function resize(){ dpr=Math.min(2,devicePixelRatio||1); W=cv.clientWidth; H=cv.clientHeight; cv.width=W*dpr; cv.height=H*dpr; }
+resize(); addEventListener("resize",()=>{ resize(); drawYear(); });
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+function frame(t){
+  const sy=scrollY; if(sy<H*1.1){
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    paintScene(ctx,W,H,season,reduce?0:t,{parallax:sy*.35,still:reduce});
+    if(snap&&fade<1){ fade=Math.min(1,(t-fadeT0)/650); ctx.globalAlpha=1-fade; ctx.drawImage(snap,0,0,W,H); ctx.globalAlpha=1; }
+  }
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+function setSeason(s){
+  if(s===season) return;
+  snap=document.createElement("canvas"); snap.width=cv.width; snap.height=cv.height; snap.getContext("2d").drawImage(cv,0,0); fade=0; fadeT0=performance.now();
+  season=s; document.querySelectorAll("#seasons button").forEach(b=>b.classList.toggle("on",+b.dataset.s===s));
+}
+document.querySelectorAll("#seasons button").forEach(b=>b.onclick=()=>setSeason(+b.dataset.s));
+
+/* nav */
+const nav=$("#nav"); addEventListener("scroll",()=>nav.classList.toggle("solid",scrollY>H-80),{passive:true});
+$("#burger").onclick=()=>$("#menu").classList.toggle("open");
+document.querySelectorAll("#menu a").forEach(a=>a.onclick=()=>$("#menu").classList.remove("open"));
+
+/* ================= ciders ================= */
+const CIDERS=[
+  {name:"Early Light",style:"Sparkling dry · 6.2%",notes:"Pressed from the first Discovery and Katy apples of the year. Green apple skin, a little lemon, very fine bubbles.",dry:.12,price:"£9",label:"#e9e3cf",band:"#4c6b4a",glass:"#6f8a5a",apple:"#9cc27a"},
+  {name:"Russet Row",style:"Medium still · 5.5%",notes:"Egremont Russets from the south rows. Nutty and honeyed with a soft, round finish. The one we drink ourselves.",dry:.45,price:"£10",label:"#f1dcb0",band:"#b86a2a",glass:"#8b5a2b",apple:"#c9862f"},
+  {name:"Bittersweet No. 9",style:"Traditional · 7.1%",notes:"Dabinett and Yarlington Mill, fourteen months in oak. Tannic and dry, with leather, clove and baked fruit.",dry:.08,price:"£14",label:"#2a2320",band:"#b3321f",glass:"#3b2a1e",apple:"#b3321f",dark:true},
+  {name:"Perry of the Hollow",style:"Pear, off-dry · 5.0%",notes:"Old perry pears from the trees along the lane. Floral and elderflower bright, softly sweet, very gentle fizz.",dry:.62,price:"£11",label:"#dfe8d4",band:"#d8a23f",glass:"#9aa56a",apple:"#c6c46a",pear:true},
+];
+function bottleSvg(c){
+  const fruit=c.pear
+    ?`<path d="M60 150c-10 0-15 8-15 16 0 10 7 17 15 17s15-7 15-17c0-8-5-16-15-16z" fill="${c.apple}"/><path d="M60 140c-5 0-8 5-8 10s3 6 8 6 8-1 8-6-3-10-8-10z" fill="${c.apple}"/><path d="M60 138v-6" stroke="${c.dark?"#e9e3cf":"#22392c"}" stroke-width="2"/>`
+    :`<circle cx="60" cy="163" r="15" fill="${c.apple}"/><path d="M60 148v-6" stroke="${c.dark?"#e9e3cf":"#22392c"}" stroke-width="2"/><path d="M60 146c3-5 8-6 11-5-2 4-6 6-11 5z" fill="#4c6b4a"/>`;
+  const ink=c.dark?"#e9e3cf":"#22392c";
+  return `<svg viewBox="0 0 120 300" aria-hidden="true"><defs><linearGradient id="gl${c.name.length}" x1="0" x2="1"><stop offset="0" stop-color="${c.glass}" stop-opacity=".95"/><stop offset=".35" stop-color="${c.glass}" stop-opacity=".7"/><stop offset="1" stop-color="${c.glass}"/></linearGradient></defs>
+    <path d="M48 8h24v10c0 4 1 6 2 14 1 9 4 18 12 30 8 12 12 24 12 38v180c0 8-6 14-14 14H36c-8 0-14-6-14-14V100c0-14 4-26 12-38s11-21 12-30c1-8 2-10 2-14z" fill="url(#gl${c.name.length})"/>
+    <rect x="46" y="4" width="28" height="16" rx="3" fill="${c.band}"/>
+    <path d="M26 118h68v112H26z" fill="${c.label}"/><rect x="26" y="118" width="68" height="8" fill="${c.band}"/>
+    <text x="60" y="139" text-anchor="middle" font-family="Young Serif" font-size="7" letter-spacing=".4" fill="${ink}">HOLLOWMERE</text>
+    ${fruit}
+    <text x="60" y="198" text-anchor="middle" font-family="Figtree" font-weight="700" font-size="${c.name.length>14?4.6:5.6}" letter-spacing=".5" fill="${ink}">${c.name.toUpperCase()}</text>
+    <text x="60" y="210" text-anchor="middle" font-family="Figtree" font-size="5.5" fill="${ink}" opacity=".75">${c.style.split(" · ")[1]}</text>
+    <path d="M32 64c-4 10-6 22-6 36v180" stroke="rgba(255,255,255,.35)" stroke-width="4" fill="none" stroke-linecap="round"/>
+  </svg>`;
+}
+let cart=0;
+$("#ciders").innerHTML=CIDERS.map((c,i)=>`<article class="cider reveal" style="transition-delay:${i*80}ms">
+  <div class="bot" style="background:radial-gradient(circle at 50% 80%,${c.apple}33,transparent 70%)">${bottleSvg(c)}</div>
+  <h3>${c.name}</h3><div class="st">${c.style}</div><p>${c.notes}</p>
+  <div class="dry"><div class="lbl"><span>Dry</span><span>Sweet</span></div><div class="bar"><i style="left:${c.dry*100}%"></i></div></div>
+  <div class="buy"><b>${c.price}</b><button data-i="${i}">Add a bottle</button></div></article>`).join("");
+document.querySelectorAll(".cider .buy button").forEach(b=>b.onclick=()=>{ cart++; b.textContent="Added"; b.classList.add("added"); setTimeout(()=>{ b.textContent="Add another"; b.classList.remove("added"); },1100);
+  const c=$("#cart"); c.textContent=cart+" bottle"+(cart>1?"s":"")+" in your basket"; c.classList.add("show"); });
+
+/* ================= the year ================= */
+const YEAR=[
+  ["March to May","Blossom","The rows turn pink for three weeks. We count the bees and pray there is no late frost."],
+  ["June to August","Fruit set","Thinning by hand, one apple in three, so the rest grow big enough to be worth pressing."],
+  ["September to November","Harvest and press","Every apple is picked or shaken down, milled in the barn, and pressed the same day."],
+  ["December to February","Rest and prune","The ciders sit in oak while we prune in the cold. The trees and the barrels both go quiet."],
+];
+$("#track").innerHTML=YEAR.map((y,i)=>`<div class="month" data-s="${i}"><canvas></canvas><div class="t"><small>${y[0]}</small><h3>${y[1]}</h3><p>${y[2]}</p></div></div>`).join("");
+function drawYear(){
+  document.querySelectorAll(".month").forEach(m=>{ const c=m.querySelector("canvas"), w=c.clientWidth, h=c.clientHeight; if(!w) return;
+    const d=Math.min(2,devicePixelRatio||1); c.width=w*d; c.height=h*d; const x=c.getContext("2d"); x.setTransform(d,0,0,d,0,0);
+    paintScene(x,w,h,+m.dataset.s,4000,{still:true,dense:.5}); });
+}
+document.querySelectorAll(".month").forEach(m=>m.onclick=()=>{ setSeason(+m.dataset.s); scrollTo({top:0,behavior:reduce?"auto":"smooth"}); });
+
+/* ================= booking ================= */
+const days=$("#days"), slots=$("#slots"); let pick={day:null,slot:null,guests:2};
+const today=new Date(); today.setHours(0,0,0,0);
+const DN=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"], MN=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+for(let i=1;i<=14;i++){ const d=new Date(today); d.setDate(d.getDate()+i); const closed=d.getDay()===1||d.getDay()===2;
+  const b=document.createElement("button"); b.type="button"; b.disabled=closed; b.innerHTML=`${d.getDate()}<small>${DN[d.getDay()]}</small>`; b.title=closed?"Closed for pressing":d.toDateString();
+  b.onclick=()=>{ pick.day=d; pick.slot=null; days.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b)); $("#f-day").classList.remove("bad"); drawSlots(); }; days.appendChild(b); }
+function slotTimes(d){ const we=d.getDay()===0||d.getDay()===6; return we?["10:00","11:30","13:00","14:30","16:00","17:30"]:["12:00","13:30","15:00","16:30"]; }
+function drawSlots(){
+  slots.innerHTML="";
+  if(!pick.day){ slots.innerHTML='<span style="color:var(--sub);font-size:14px">Pick a day first.</span>'; return; }
+  const r=rng(pick.day.getDate()*31+pick.day.getMonth()); // stable, pretend availability
+  for(const t of slotTimes(pick.day)){ const full=r()<.22, b=document.createElement("button"); b.type="button"; b.textContent=t+(full?" · full":""); b.disabled=full;
+    b.onclick=()=>{ pick.slot=t; slots.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b)); $("#f-slot").classList.remove("bad"); }; slots.appendChild(b); }
+}
+drawSlots();
+const upd=()=>{ $("#guests").textContent=pick.guests; $("#total").textContent="£"+pick.guests*18; };
+$("#minus").onclick=()=>{ pick.guests=Math.max(1,pick.guests-1); upd(); };
+$("#plus").onclick=()=>{ pick.guests=Math.min(10,pick.guests+1); upd(); };
+["name","mail"].forEach(id=>$("#"+id).addEventListener("input",()=>$("#f-"+id).classList.remove("bad")));
+$("#form").onsubmit=e=>{
+  e.preventDefault();
+  const name=$("#name").value.trim(), mail=$("#mail").value.trim(); let ok=true;
+  const flag=(id,bad)=>{ $("#"+id).classList.toggle("bad",bad); if(bad) ok=false; };
+  flag("f-day",!pick.day); flag("f-slot",!pick.slot); flag("f-name",name.length<2); flag("f-mail",!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail));
+  if(!ok){ const first=document.querySelector(".fld.bad"); first&&first.scrollIntoView({block:"center",behavior:reduce?"auto":"smooth"}); return; }
+  const ref="HM-"+Math.random().toString(36).slice(2,6).toUpperCase();
+  const d=pick.day;
+  $("#fbody").innerHTML=`<div class="done"><h3>See you in the barn, ${name.split(" ")[0].replace(/[<>&]/g,"")}.</h3>
+    <p class="sub" style="margin:0">${DN[d.getDay()]} ${d.getDate()} ${MN[d.getMonth()]} at ${pick.slot}, ${pick.guests} guest${pick.guests>1?"s":""}, £${pick.guests*18} paid on the day.</p>
+    <div class="ref">${ref}</div><p class="fine">A fictional booking. Nothing was sent.</p></div>`;
+};
+
+/* ================= reveal and counters ================= */
+const io=new IntersectionObserver(es=>es.forEach(e=>{ if(!e.isIntersecting) return; e.target.classList.add("in"); io.unobserve(e.target);
+  e.target.querySelectorAll("[data-n]").forEach(b=>{ const n=+b.dataset.n, t0=performance.now(), from=n>1000?1800:0;
+    const step=t=>{ const k=Math.min(1,(t-t0)/1400), v=Math.round(from+(n-from)*(1-(1-k)**3)); b.textContent=v; if(k<1) requestAnimationFrame(step); }; requestAnimationFrame(step); });
+  if(e.target.id==="track") drawYear();
+}),{threshold:.15});
+document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
