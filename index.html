@@ -7,11 +7,11 @@
 <meta name="description" content="A brand site for Hollowmere, a fictional cider house. The orchard in the hero is drawn in code and changes with the seasons. No images, no libraries." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Alegreya+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
 <style>
 :root{
   --cream:#f4ede0; --paper:#fbf7ef; --ink:#1d2a22; --green:#22392c; --moss:#4c6b4a; --red:#b3321f; --gold:#d8a23f; --sub:#5f6a61; --line:#ded4c2;
-  --s:"Young Serif",Georgia,serif; --d:"Figtree",system-ui,sans-serif;
+  --s:"Young Serif",Georgia,serif; --d:"Alegreya Sans",system-ui,sans-serif;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -46,7 +46,7 @@ nav.solid .burger{color:var(--ink)}
 .hero .scroll{position:absolute;right:28px;bottom:26px;color:rgba(255,255,255,.8);font-size:13px;z-index:2;letter-spacing:.08em;text-transform:uppercase}
 /* sections */
 section{padding:110px 0}
-.kicker{font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin:0 0 14px}
+.kicker{font-size:16px;font-weight:700;color:var(--red);margin:0 0 14px}
 h2{font-family:var(--s);font-weight:400;font-size:clamp(34px,4.4vw,58px);line-height:1.05;margin:0 0 20px;letter-spacing:-.01em}
 .lede{font-size:19px;color:var(--sub);max-width:620px;margin:0}
 .intro{display:grid;grid-template-columns:1.1fr 1fr;gap:70px;align-items:end}
@@ -124,7 +124,7 @@ footer{padding:50px 0 60px;font-size:14px;color:var(--sub)}
 footer .wrap{display:flex;gap:30px;flex-wrap:wrap;justify-content:space-between;align-items:center}
 .cart{position:fixed;right:22px;bottom:22px;z-index:30;background:var(--ink);color:#fff;border-radius:99px;padding:11px 18px;font-weight:600;font-size:14px;box-shadow:0 10px 30px rgba(0,0,0,.3);transform:translateY(120px);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
 .cart.show{transform:none}
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+.reveal{}
 .reveal.in{opacity:1;transform:none}
 @media (max-width:1000px){.ciders{grid-template-columns:1fr 1fr}.year .track{grid-template-columns:1fr 1fr}.intro,.vgrid{grid-template-columns:1fr;gap:34px}}
 @media (max-width:720px){
@@ -155,15 +155,14 @@ footer .wrap{display:flex;gap:30px;flex-wrap:wrap;justify-content:space-between;
     <p>Hollowmere presses apples from one orchard in a valley that has grown them since 1897. Nothing is brought in and nothing is rushed.</p>
     <div class="seasons" id="seasons"><button data-s="0">Spring</button><button data-s="1">Summer</button><button data-s="2" class="on">Autumn</button><button data-s="3">Winter</button></div>
   </div></div>
-  <div class="scroll">Scroll</div>
-</header>
+  </header>
 
 <section id="about"><div class="wrap">
   <div class="intro reveal">
     <div><p class="kicker">The orchard</p><h2>We let the fruit decide how the cider tastes.</h2></div>
     <p class="lede">Forty acres, eleven varieties, and trees older than anyone who works here. We pick by hand, press in the barn, and ferment on wild yeast in old oak. Some years that makes a sharper cider, some years a softer one. We bottle whatever the orchard gives us.</p>
   </div>
-  <div class="facts reveal"><div><b data-n="1897">0</b><span>the year the first rows went in</span></div><div><b data-n="11">0</b><span>apple and pear varieties</span></div><div><b data-n="14">0</b><span>months in oak for the No. 9</span></div></div>
+  <div class="facts reveal"><div><b>1897</b><span>the year the first rows went in</span></div><div><b>11</b><span>apple and pear varieties</span></div><div><b>14</b><span>months in oak for the No. 9</span></div></div>
 </div></section>
 
 <section class="range" id="range"><div class="wrap">
@@ -199,7 +198,7 @@ footer .wrap{display:flex;gap:30px;flex-wrap:wrap;justify-content:space-between;
   </form>
 </div></section>
 
-<footer><div class="wrap"><span>Hollowmere Cider · a fictional brand</span><span>The orchard, bottles and seasons are drawn in code. No images.</span><span>Built by <a href="https://bxzex.com">bxzex</a></span></div></footer>
+<footer><div class="wrap"><span>Hollowmere Cider · a fictional brand</span><span>The orchard, bottles and seasons are drawn in code. No images.</span><span>© 2026 <a href="https://bxzex.com">bxzex</a></span></div></footer>
 <div class="cart" id="cart"></div>
 
 <script>
@@ -352,8 +351,8 @@ function bottleSvg(c){
     <path d="M26 118h68v112H26z" fill="${c.label}"/><rect x="26" y="118" width="68" height="8" fill="${c.band}"/>
     <text x="60" y="139" text-anchor="middle" font-family="Young Serif" font-size="7" letter-spacing=".4" fill="${ink}">HOLLOWMERE</text>
     ${fruit}
-    <text x="60" y="198" text-anchor="middle" font-family="Figtree" font-weight="700" font-size="${c.name.length>14?4.6:5.6}" letter-spacing=".5" fill="${ink}">${c.name.toUpperCase()}</text>
-    <text x="60" y="210" text-anchor="middle" font-family="Figtree" font-size="5.5" fill="${ink}" opacity=".75">${c.style.split(" · ")[1]}</text>
+    <text x="60" y="198" text-anchor="middle" font-family="Alegreya Sans" font-weight="700" font-size="${c.name.length>14?4.6:5.6}" letter-spacing=".5" fill="${ink}">${c.name.toUpperCase()}</text>
+    <text x="60" y="210" text-anchor="middle" font-family="Alegreya Sans" font-size="5.5" fill="${ink}" opacity=".75">${c.style.split(" · ")[1]}</text>
     <path d="M32 64c-4 10-6 22-6 36v180" stroke="rgba(255,255,255,.35)" stroke-width="4" fill="none" stroke-linecap="round"/>
   </svg>`;
 }
